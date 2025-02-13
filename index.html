@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Income Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="cookie-consent" id="cookieConsent">
+        <p>This site uses cookies to enable persistent income tracking across browser sessions.</p>
+        <div class="cookie-buttons">
+            <button id="acceptCookies">Accept</button>
+            <button id="declineCookies">Decline</button>
+        </div>
+    </div>
+    <div class="container">
+        <div class="income-form">
+            <h1>Income Tracker</h1>
+            <div class="input-group">
+                <label for="hourlyRate">Hourly Rate ($)</label>
+                <input type="number" id="hourlyRate" step="0.01" min="0" placeholder="Enter your hourly rate">
+            </div>
+            <div class="input-group switch-group">
+                <label class="switch-label">
+                    <span>Currently Working</span>
+                    <label class="switch">
+                        <input type="checkbox" id="workingToggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </label>
+            </div>
+            <div class="input-group">
+                <label for="monthlyBonus">Monthly Bonus ($)</label>
+                <input type="number" id="monthlyBonus" step="0.01" min="0" placeholder="Enter monthly bonus">
+            </div>
+            <div class="input-group">
+                <label for="monthlyExpenses">Monthly Expenses ($)</label>
+                <input type="number" id="monthlyExpenses" step="0.01" min="0" placeholder="Enter monthly expenses">
+            </div>
+            <button id="startTracking">Start Tracking</button>
+            <button id="resetTracking" class="secondary">Reset Tracking</button>
+        </div>
+        
+        <div class="income-display">
+            <div class="current-income">
+                <h2>Current Income</h2>
+                <div class="income-amount" id="incomeAmount">$0.0000</div>
+            </div>
+            <div class="income-stats">
+                <div class="stat">
+                    <span class="label">Per Second</span>
+                    <span class="value" id="perSecond">$0.0000</span>
+                </div>
+                <div class="stat">
+                    <span class="label">Per Minute</span>
+                    <span class="value" id="perMinute">$0.0000</span>
+                </div>
+                <div class="stat">
+                    <span class="label">Per Hour</span>
+                    <span class="value" id="perHour">$0.0000</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
