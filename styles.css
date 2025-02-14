@@ -365,8 +365,8 @@ button {
 
     .current-income {
         padding: 2rem 1.5rem;
-        margin: 0;
-        border-radius: 0;
+        margin: 0 0.75rem;
+        border-radius: 16px;
     }
 
     .current-income.compact {
