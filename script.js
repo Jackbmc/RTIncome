@@ -11,6 +11,7 @@ class IncomeTracker {
         this.workingPeriods = [];
         this.currentWorkPeriod = null;
         this.cookiesAccepted = false;
+        this.scrollThreshold = 100; // pixels to scroll before compacting
         
         // DOM elements
         this.hourlyRateInput = document.getElementById('hourlyRate');
@@ -30,6 +31,17 @@ class IncomeTracker {
         this.loadPersistedData();
     }
 
+    handleScroll() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const currentIncomeCard = document.querySelector('.current-income');
+        
+        if (scrollTop > this.scrollThreshold) {
+            currentIncomeCard.classList.add('compact');
+        } else {
+            currentIncomeCard.classList.remove('compact');
+        }
+    }
+
     setupEventListeners() {
         this.startButton.addEventListener('click', () => this.toggleTracking());
         this.resetButton.addEventListener('click', () => this.resetTracking());
@@ -37,6 +49,18 @@ class IncomeTracker {
         this.monthlyBonusInput.addEventListener('input', () => this.updateRates());
         this.monthlyExpensesInput.addEventListener('input', () => this.updateRates());
         this.workingToggle.addEventListener('change', () => this.toggleWorking());
+        
+        // Add scroll event listener with throttling
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    this.handleScroll();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
         
         document.getElementById('acceptCookies').addEventListener('click', () => {
             this.acceptCookies();
@@ -182,7 +206,8 @@ class IncomeTracker {
             isWorking: this.isWorking,
             trackingStartTime: this.trackingStartTime,
             workingPeriods: this.workingPeriods,
-            currentWorkPeriod: this.currentWorkPeriod
+            currentWorkPeriod: this.currentWorkPeriod,
+            theme: this.currentTheme
         };
         
         localStorage.setItem('incomeTrackerData', JSON.stringify(data));
